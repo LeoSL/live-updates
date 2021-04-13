@@ -2,10 +2,14 @@
 import TradingViewWidget, { Themes } from "react-tradingview-widget";
 import "./style.css";
 
-export const MarketChart = () => (
+type MarketChartProps = {
+  ticketPair: string;
+};
+
+export const MarketChart: React.FC<MarketChartProps> = ({ ticketPair }) => (
   <div className="Chart">
     <TradingViewWidget
-      symbol="BTCCAD"
+      symbol={ticketPair}
       theme={Themes.DARK}
       locale="en"
       autosize
