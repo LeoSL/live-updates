@@ -1,21 +1,22 @@
-import React from "react";
 import logo from "./logo.svg";
 import "./assets/App.css";
 
-import ws from "./websockets";
 import { MarketChart } from "./Components/MarketChart";
+import { MarketData } from "./Components/MarketData";
 
 function App() {
-  ws();
-
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-      </header>
-
-      <MarketChart ticketPair={"BTCCAD"} />
-    </div>
+    <>
+      <div className="App">
+        <header className="App-header">
+          <img src={logo} className="App-logo" alt="logo" />
+        </header>
+        <MarketChart ticketPair={"BTCCAD"} />
+      </div>
+      <div className="MarketData">
+        <MarketData baseTicker="BTC" quoteTicker="CAD" />
+      </div>
+    </>
   );
 }
 

@@ -3,6 +3,10 @@
   background-color: #282c34;
 }
 
+.MarketData {
+  text-align: center;
+}
+
 .App-logo {
   height: 10vmin;
   pointer-events: none;
