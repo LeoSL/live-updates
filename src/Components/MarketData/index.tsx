@@ -57,9 +57,14 @@ export const MarketData: React.FC<MarketDataType> = ({
     displaySymbol,
   } = data.marketData.marketDataResponse[0];
 
+  const marketSymbol =
+    marketDataLast24HourPriceAggregate?.percentChange > 0 ? "📈" : "📉";
+
   return (
     <div>
-      <h2>Market: {displaySymbol}</h2>
+      <h2>
+        Market: {displaySymbol} {marketSymbol}{" "}
+      </h2>
       <AggregatedData {...marketDataLast24HourPriceAggregate} />
     </div>
   );
