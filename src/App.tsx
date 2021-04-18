@@ -2,7 +2,7 @@ import logo from "./logo.svg";
 import "./assets/App.css";
 
 import { MarketChart } from "./Components/MarketChart";
-import { MarketData } from "./Components/MarketData";
+import { MarketDataHttp, MarketDataWebSocket } from "./Components/MarketData";
 
 function App() {
   return (
@@ -13,8 +13,10 @@ function App() {
         </header>
         <MarketChart ticketPair={"BTCCAD"} />
       </div>
+      <hr />
       <div className="MarketData">
-        <MarketData baseTicker="BTC" quoteTicker="CAD" />
+        <MarketDataHttp baseTicker="BTC" quoteTicker="CAD" />
+        <MarketDataWebSocket />
       </div>
     </>
   );

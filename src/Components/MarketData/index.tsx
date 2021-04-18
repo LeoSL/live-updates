@@ -1,8 +1,16 @@
-import { useQuery, gql } from "@apollo/client";
+import { useQuery, useSubscription, gql } from "@apollo/client";
 
-const MARKET_DATA = gql`
+const MARKET_DATA_HTTP = gql`
   query MarketData($baseTicker: String!, $quoteTicker: String!) {
     marketData(baseTicker: $baseTicker, quoteTicker: $quoteTicker) {
+      marketDataResponse
+    }
+  }
+`;
+
+const MARKET_DATA_WEBSOCKET = gql`
+  subscription Subscription {
+    marketData {
       marketDataResponse
     }
   }
@@ -15,6 +23,7 @@ type AggregatedDataType = {
   low: string;
   percentChange: string;
 };
+
 const AggregatedData: React.FC<AggregatedDataType> = ({
   average,
   close,
@@ -38,19 +47,20 @@ type MarketDataType = {
   baseTicker: string;
   quoteTicker: string;
 };
-export const MarketData: React.FC<MarketDataType> = ({
+
+export const MarketDataHttp: React.FC<MarketDataType> = ({
   baseTicker,
   quoteTicker,
 }) => {
-  const { loading, error, data } = useQuery(MARKET_DATA, {
+  const { loading, error, data } = useQuery(MARKET_DATA_HTTP, {
     variables: {
       baseTicker,
       quoteTicker,
     },
   });
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error on fetching Market data :(</p>;
+  if (loading) return <p>Http - Loading...</p>;
+  if (error) return <p>Http - Error on fetching Market data :(</p>;
 
   const {
     marketDataLast24HourPriceAggregate,
@@ -62,6 +72,32 @@ export const MarketData: React.FC<MarketDataType> = ({
 
   return (
     <div>
+      <h1>HTTP</h1>
+      <h2>
+        Market: {displaySymbol} {marketSymbol}{" "}
+      </h2>
+      <AggregatedData {...marketDataLast24HourPriceAggregate} />
+    </div>
+  );
+};
+
+export const MarketDataWebSocket: React.FC = () => {
+  const { data, error, loading } = useSubscription(MARKET_DATA_WEBSOCKET);
+
+  if (loading) return <p>WebSocket - Loading...</p>;
+  if (error) return <p>WebSocket - Error on fetching Market data :(</p>;
+
+  const {
+    marketDataLast24HourPriceAggregate,
+    displaySymbol,
+  } = data.marketData.marketDataResponse.tradingPairs[0];
+
+  const marketSymbol =
+    marketDataLast24HourPriceAggregate?.percentChange > 0 ? "📈" : "📉";
+
+  return (
+    <div>
+      <h1>WebSockets</h1>
       <h2>
         Market: {displaySymbol} {marketSymbol}{" "}
       </h2>
