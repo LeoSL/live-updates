@@ -5,7 +5,7 @@ import { getMainDefinition } from "@apollo/client/utilities";
 import { WebSocketLink } from "@apollo/client/link/ws";
 import { ApolloProvider } from "@apollo/client/react";
 
-import "./index.css";
+import "./assets/index.css";
 import App from "./App";
 
 const httpLink = new HttpLink({

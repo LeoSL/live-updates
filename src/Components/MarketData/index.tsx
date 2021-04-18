@@ -1,4 +1,5 @@
 import { useQuery, useSubscription, gql } from "@apollo/client";
+import { MarketCard } from "../Card";
 
 const MARKET_DATA_HTTP = gql`
   query MarketData($baseTicker: String!, $quoteTicker: String!) {
@@ -22,6 +23,7 @@ type AggregatedDataType = {
   high: string;
   low: string;
   percentChange: string;
+  orderbook: any;
 };
 
 const AggregatedData: React.FC<AggregatedDataType> = ({
@@ -30,8 +32,10 @@ const AggregatedData: React.FC<AggregatedDataType> = ({
   high,
   low,
   percentChange,
-  // orderbook,
+  orderbook,
 }) => {
+  console.log("orderbook", orderbook);
+
   return (
     <div>
       <p>average: {average}</p>
@@ -71,13 +75,13 @@ export const MarketDataHttp: React.FC<MarketDataType> = ({
     marketDataLast24HourPriceAggregate?.percentChange > 0 ? "📈" : "📉";
 
   return (
-    <div>
-      <h1>HTTP</h1>
-      <h2>
-        Market: {displaySymbol} {marketSymbol}{" "}
-      </h2>
+    <MarketCard
+      title="HTTP"
+      displaySymbol={displaySymbol}
+      marketSymbol={marketSymbol}
+    >
       <AggregatedData {...marketDataLast24HourPriceAggregate} />
-    </div>
+    </MarketCard>
   );
 };
 
@@ -96,12 +100,12 @@ export const MarketDataWebSocket: React.FC = () => {
     marketDataLast24HourPriceAggregate?.percentChange > 0 ? "📈" : "📉";
 
   return (
-    <div>
-      <h1>WebSockets</h1>
-      <h2>
-        Market: {displaySymbol} {marketSymbol}{" "}
-      </h2>
+    <MarketCard
+      title="WebSockets"
+      displaySymbol={displaySymbol}
+      marketSymbol={marketSymbol}
+    >
       <AggregatedData {...marketDataLast24HourPriceAggregate} />
-    </div>
+    </MarketCard>
   );
 };

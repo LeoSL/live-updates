@@ -1,25 +1,49 @@
-import logo from "./logo.svg";
-import "./assets/App.css";
+import { Box, Divider, makeStyles } from "@material-ui/core";
 
+import logo from "./logo.svg";
 import { MarketChart } from "./Components/MarketChart";
 import { MarketDataHttp, MarketDataWebSocket } from "./Components/MarketData";
 
-function App() {
+const useStyles = makeStyles({
+  "@keyframes appLogoSpin": {
+    "0%": {
+      transform: "rotate(0deg)",
+    },
+    "100%": {
+      transform: "rotate(360deg)",
+    },
+  },
+  app: {
+    backgroundColor: "#282c34",
+  },
+  appLogo: {
+    height: "10vmin",
+    pointerEvents: "none",
+    animation: "$appLogoSpin infinite 20s linear",
+  },
+  appHeader: {
+    minHeight: "10vh",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+});
+
+const App: React.FC = () => {
+  const classes = useStyles();
+
   return (
-    <>
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-        </header>
-        <MarketChart ticketPair={"BTCCAD"} />
-      </div>
-      <hr />
-      <div className="MarketData">
-        <MarketDataHttp baseTicker="BTC" quoteTicker="CAD" />
-        <MarketDataWebSocket />
-      </div>
-    </>
+    <Box className={classes.app}>
+      <header className={classes.appHeader}>
+        <img src={logo} className={classes.appLogo} alt="spinning logo" />
+      </header>
+      <MarketChart ticketPair={"BTCCAD"} />
+      <Divider />
+      <MarketDataHttp baseTicker="BTC" quoteTicker="CAD" />
+      <MarketDataWebSocket />
+    </Box>
   );
-}
+};
 
 export default App;
