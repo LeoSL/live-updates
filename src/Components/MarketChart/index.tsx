@@ -1,3 +1,5 @@
+import { Box } from "@material-ui/core";
+
 // @ts-ignore
 import TradingViewWidget, { Themes } from "react-tradingview-widget";
 import "./style.css";
@@ -7,12 +9,12 @@ type MarketChartProps = {
 };
 
 export const MarketChart: React.FC<MarketChartProps> = ({ ticketPair }) => (
-  <div className="Chart">
+  <Box height="25vh" pl={2} pr={2}>
     <TradingViewWidget
-      symbol={ticketPair}
+      symbol={ticketPair.replace("-", "")}
       theme={Themes.DARK}
       locale="en"
       autosize
     />
-  </div>
+  </Box>
 );

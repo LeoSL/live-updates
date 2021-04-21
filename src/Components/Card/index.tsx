@@ -1,5 +1,11 @@
 import { ComponentType } from "react";
-import { Card, CardContent, Typography, makeStyles } from "@material-ui/core";
+import {
+  Box,
+  Card,
+  CardContent,
+  Typography,
+  makeStyles,
+} from "@material-ui/core";
 
 const useStyles = makeStyles({
   root: {
@@ -27,17 +33,21 @@ export const MarketCard: ComponentType<MarketCardType> = ({
   return (
     <Card className={classes.root}>
       <CardContent>
-        <Typography
-          className={classes.title}
-          color="textSecondary"
-          gutterBottom
-        >
-          {title}
-        </Typography>
-        <Typography variant="h5" component="h2">
-          Market: {displaySymbol} {marketSymbol}
-        </Typography>
-        {children}
+        <Box display="flex" flexDirection="column">
+          <Box>
+            <Typography
+              className={classes.title}
+              color="textSecondary"
+              gutterBottom
+            >
+              {title}
+            </Typography>
+            <Typography variant="h5" component="h2">
+              Market: {displaySymbol} {marketSymbol}
+            </Typography>
+          </Box>
+          <Box>{children}</Box>
+        </Box>
       </CardContent>
     </Card>
   );
