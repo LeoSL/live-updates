@@ -7,6 +7,8 @@ import {
   makeStyles,
 } from "@material-ui/core";
 
+import { MarketStats } from "./MarketStats";
+
 const useStyles = makeStyles({
   root: {
     minWidth: 275,
@@ -18,14 +20,15 @@ const useStyles = makeStyles({
 
 type MarketCardType = {
   title: string;
-  displaySymbol: string;
-  marketSymbol: string;
+  pair: string;
+  percentChange: number;
+  children?: React.ReactNode;
 };
 
 export const MarketCard: ComponentType<MarketCardType> = ({
   title,
-  displaySymbol,
-  marketSymbol,
+  pair,
+  percentChange,
   children,
 }) => {
   const classes = useStyles();
@@ -43,10 +46,11 @@ export const MarketCard: ComponentType<MarketCardType> = ({
               {title}
             </Typography>
             <Typography variant="h5" component="h2">
-              Market: {displaySymbol} {marketSymbol}
+              Market: {pair}{" "}
+              {percentChange && <MarketStats percentChange={percentChange} />}
             </Typography>
           </Box>
-          <Box>{children}</Box>
+          {children}
         </Box>
       </CardContent>
     </Card>

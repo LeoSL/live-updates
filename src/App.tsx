@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { Box, Grid, makeStyles } from "@material-ui/core";
+import { Box, Grid } from "@material-ui/core";
 
-import { MarketChart } from "./Components/MarketChart";
+import { MarketChart } from "./Components/Chart";
 import { MarketDataHttp, MarketDataWebSocket } from "./Components/MarketData";
-import { TicketPairType, TicketPairEnum } from "./models/pairs";
+import { TicketPairType } from "./models/pairs";
 import { MarketSelector } from "./Components/MarketSelector";
 
 const App: React.FC = () => {
@@ -24,7 +24,7 @@ const App: React.FC = () => {
             />
           </Grid>
           <Grid item xs={12}>
-            <MarketChart ticketPair={TicketPairEnum[ticketPair]} />
+            <MarketChart ticketPair={ticketPair.replace("-", "")} />
           </Grid>
         </Grid>
       </Box>

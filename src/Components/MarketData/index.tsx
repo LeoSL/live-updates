@@ -1,28 +1,13 @@
 import { ComponentType } from "react";
-import { useQuery, useSubscription, gql } from "@apollo/client";
+import { useQuery, useSubscription } from "@apollo/client";
 import { Box, Table, TableBody, TableRow, TableCell } from "@material-ui/core";
 
 import { TicketPairType } from "../../models/pairs";
 import { OrdersTable } from "./OrdersTable";
 import { MarketCard } from "../Card";
+import { MARKET_DATA_HTTP, MARKET_DATA_WEBSOCKET } from "../../graphql";
 
 const MARKET_DATA_POLL_INTERVAL = 2000;
-
-const MARKET_DATA_HTTP = gql`
-  query MarketData($baseTicker: String!, $quoteTicker: String!) {
-    marketData(baseTicker: $baseTicker, quoteTicker: $quoteTicker) {
-      marketDataResponse
-    }
-  }
-`;
-
-const MARKET_DATA_WEBSOCKET = gql`
-  subscription Subscription {
-    marketData {
-      marketDataResponse
-    }
-  }
-`;
 
 type AggregatedDataProps = {
   average: string;
@@ -38,7 +23,6 @@ const AggregatedData: React.FC<AggregatedDataProps> = ({
   close,
   high,
   low,
-  percentChange,
   orderbook,
 }) => {
   return (
@@ -46,17 +30,24 @@ const AggregatedData: React.FC<AggregatedDataProps> = ({
       <Table>
         <TableBody>
           <TableRow>
-            <TableCell>average: {average}</TableCell>
-            <TableCell>close: {close}</TableCell>
-            <TableCell>high: {high}</TableCell>
-            <TableCell>low: {low}</TableCell>
-            <TableCell>percentChange: {percentChange}</TableCell>
+            <TableCell>
+              <strong>Average:</strong> {average}
+            </TableCell>
+            <TableCell>
+              <strong>Close:</strong> {close}
+            </TableCell>
+            <TableCell>
+              <strong>High:</strong> {high}
+            </TableCell>
+            <TableCell>
+              <strong>Low:</strong> {low}
+            </TableCell>
           </TableRow>
         </TableBody>
       </Table>
-      <div>
+      <Box>
         <OrdersTable orderbook={orderbook} />
-      </div>
+      </Box>
     </Box>
   );
 };
@@ -87,17 +78,18 @@ export const MarketDataHttp: React.FC<MarketDataHttpProps> = ({
 
   const {
     marketDataLast24HourPriceAggregate,
-    displaySymbol,
+    displaySymbol: pair,
   } = data.marketData.marketDataResponse[0];
 
-  const marketSymbol =
-    marketDataLast24HourPriceAggregate?.percentChange > 0 ? "📈" : "📉";
+  const percentChange: number = Number(
+    marketDataLast24HourPriceAggregate?.percentChange
+  );
 
   return (
     <MarketCard
       title={polling ? "HTTP - Polling" : "HTTP"}
-      displaySymbol={displaySymbol}
-      marketSymbol={marketSymbol}
+      pair={pair}
+      percentChange={percentChange}
     >
       <AggregatedData {...marketDataLast24HourPriceAggregate} />
     </MarketCard>
@@ -120,20 +112,18 @@ export const MarketDataWebSocket: ComponentType<MarketDataWebSocketProps> = ({
     (pairs: any) => pairs.displaySymbol === ticketPair
   );
 
-  const { marketDataLast24HourPriceAggregate, displaySymbol } = marketData;
+  const {
+    marketDataLast24HourPriceAggregate,
+    displaySymbol: pair,
+  } = marketData;
 
-  const marketSymbol =
-    marketDataLast24HourPriceAggregate?.percentChange > 0 ? "📈" : "📉";
+  const percentChange = Number(
+    marketDataLast24HourPriceAggregate?.percentChange
+  );
 
   return (
-    <Box>
-      <MarketCard
-        title="WebSockets"
-        displaySymbol={displaySymbol}
-        marketSymbol={marketSymbol}
-      >
-        <AggregatedData {...marketDataLast24HourPriceAggregate} />
-      </MarketCard>
-    </Box>
+    <MarketCard title="WebSockets" pair={pair} percentChange={percentChange}>
+      <AggregatedData {...marketDataLast24HourPriceAggregate} />
+    </MarketCard>
   );
 };

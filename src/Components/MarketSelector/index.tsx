@@ -2,7 +2,7 @@ import { ComponentType } from "react";
 import { Box, Select, MenuItem, makeStyles } from "@material-ui/core";
 
 import logo from "../../logo.svg";
-import { TicketPairEnum, TicketPairType } from "../../models/pairs";
+import { TicketPairType } from "../../models/pairs";
 
 type MarketSelectorType = {
   ticketPair: TicketPairType;
@@ -25,6 +25,7 @@ const useStyles = makeStyles({
     animation: "$appLogoSpin infinite 20s linear",
   },
   marketSelect: {
+    color: "white",
     fontSize: "42px",
   },
 });
@@ -39,16 +40,15 @@ export const MarketSelector: ComponentType<MarketSelectorType> = ({
   return (
     <Box display="flex" flexDirection="row" justifyContent="space-between">
       <img src={logo} className={classes.appLogo} alt="spinning logo" />
-      <Box pr={2} pt={0.5}>
+      <Box pr={2} pt={2}>
         <Select
           value={ticketPair}
           onChange={(event) => handleChange(event.target.value)}
-          inputProps={{ "aria-label": "Without label" }}
           className={classes.marketSelect}
         >
           {markets.map((pair) => (
             <MenuItem key={pair} value={pair}>
-              {TicketPairEnum[pair]}
+              {pair}
             </MenuItem>
           ))}
         </Select>
