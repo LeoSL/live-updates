@@ -8,6 +8,8 @@
 
 - Powered by React, TypeScript, and Apollo Client v3.
 
+![marketLiveUpdatesGIF](https://user-images.githubusercontent.com/6999140/115975309-a713b800-a531-11eb-9b40-04000d3c3e14.gif)
+
 ## Available Scripts
 
 In the project directory, you can run:
@@ -34,7 +36,7 @@ Launches the test runner in the interactive watch mode.
 
 ## Architecture
 
-- [Diagram Placeholder]
+![Market Live Updates@2x (5)](https://user-images.githubusercontent.com/6999140/115975299-919e8e00-a531-11eb-8bf5-4007ccd6c2ba.png)
 
 ---
 
