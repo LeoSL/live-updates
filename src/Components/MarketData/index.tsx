@@ -4,7 +4,7 @@ import { Box, Table, TableBody, TableRow, TableCell } from "@material-ui/core";
 
 import { TicketPairType } from "../../models/pairs";
 import { OrdersTable } from "./OrdersTable";
-import { MarketCard } from "../Card";
+import { MarketCard } from "../MarketCard";
 import { MARKET_DATA_HTTP, MARKET_DATA_WEBSOCKET } from "../../graphql";
 
 const MARKET_DATA_POLL_INTERVAL = 2000;
