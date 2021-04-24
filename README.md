@@ -24,6 +24,10 @@ You will also see any lint errors in the console.
 
 Launches the test runner in the interactive watch mode.\
 
+## Architecture
+
+- [Diagram Placeholder]
+
 ---
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
