@@ -18,7 +18,7 @@ type AggregatedDataProps = {
   orderbook: any;
 };
 
-const AggregatedData: React.FC<AggregatedDataProps> = ({
+const AggregatedData: ComponentType<AggregatedDataProps> = ({
   average,
   close,
   high,
@@ -58,7 +58,7 @@ type MarketDataHttpProps = {
   quoteTicker: string;
 };
 
-export const MarketDataHttp: React.FC<MarketDataHttpProps> = ({
+export const MarketDataHttp: ComponentType<MarketDataHttpProps> = ({
   polling = false,
   baseTicker,
   quoteTicker,
