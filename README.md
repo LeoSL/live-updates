@@ -12,6 +12,14 @@
 
 In the project directory, you can run:
 
+### `npm install`
+
+Installs project dependencies.
+
+💡 **Before** running the installation, make sure you have the same Node version by running `nvm use`.
+
+- That's not working? Check how to [install and use nvm here](https://itnext.io/nvm-the-easiest-way-to-switch-node-js-environments-on-your-machine-in-a-flash-17babb7d5f1b).
+
 ### `npm start`
 
 Runs the app in the development mode.\
@@ -22,7 +30,7 @@ You will also see any lint errors in the console.
 
 ### `npm test`
 
-Launches the test runner in the interactive watch mode.\
+Launches the test runner in the interactive watch mode.
 
 ## Architecture
 
