@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { Box, Grid } from "@material-ui/core";
 
+import { TicketPairType } from "./models/pairs";
+import { Header } from "./Components/Header";
 import { MarketChart } from "./Components/Chart";
 import { MarketDataHttp, MarketDataWebSocket } from "./Components/MarketData";
-import { TicketPairType } from "./models/pairs";
 import { MarketSelector } from "./Components/MarketSelector";
 
 const App: React.FC = () => {
@@ -17,11 +18,13 @@ const App: React.FC = () => {
       <Box pb={2}>
         <Grid container>
           <Grid item xs={12}>
-            <MarketSelector
-              ticketPair={ticketPair}
-              markets={markets}
-              handleChange={setTicketPair}
-            />
+            <Header>
+              <MarketSelector
+                ticketPair={ticketPair}
+                markets={markets}
+                handleChange={setTicketPair}
+              />
+            </Header>
           </Grid>
           <Grid item xs={12}>
             <MarketChart ticketPair={ticketPair.replace("-", "")} />

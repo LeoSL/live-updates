@@ -24,7 +24,7 @@ export const shuffleArray = (arr: any) => {
 
 export const smarterShuffleArray = (arr: any) => {
   const newArr = [];
-  const randomRecord: Record<string, number> = {};
+  const randomRecord: Record<string, boolean> = {};
 
   // Gives you a random Integer between 0 and the array length
   let randomInt = Math.floor(Math.random() * arr.length);
@@ -34,7 +34,7 @@ export const smarterShuffleArray = (arr: any) => {
       randomInt = Math.floor(Math.random() * arr.length);
     }
 
-    randomRecord[randomInt] = 1;
+    randomRecord[randomInt] = true;
     newArr.push(arr[randomInt]);
   }
 
@@ -43,27 +43,28 @@ export const smarterShuffleArray = (arr: any) => {
 
 export const evenMoreSmarterShuffleArray = (arr: any) => {
   const newArr = [];
-  const randomRecord: Record<string, number> = {};
+  const randomRecord: Record<string, boolean> = {};
 
   // Gives you a random Integer between 0 and the array length
   let randomInt = Math.floor(Math.random() * arr.length);
+
   let initialRandomInt = randomInt;
 
-  for (let index = 0; index < arr.length; index++) {
+  while (newArr.length <= arr.length) {
     if (!randomRecord[randomInt]) {
-      randomRecord[randomInt] = 1;
+      randomRecord[randomInt] = true;
       newArr.push(arr[randomInt]);
     }
 
     if (!!randomRecord[randomInt] && randomInt + 1 < arr.length) {
       randomInt += 1;
-      randomRecord[randomInt] = 1;
+      randomRecord[randomInt] = true;
       newArr.push(arr[randomInt]);
     }
 
     if (initialRandomInt >= 0) {
       initialRandomInt -= 1;
-      randomRecord[initialRandomInt] = 1;
+      randomRecord[initialRandomInt] = true;
       newArr.push(arr[initialRandomInt]);
     }
   }
