@@ -6,12 +6,7 @@ import {
   makeStyles,
 } from "@material-ui/core";
 
-import {
-  addOrdersType,
-  // shuffleArray,
-  // smarterShuffleArray,
-  evenMoreSmarterShuffleArray,
-} from "../../lib/utils";
+import { addOrdersType, evenSmarterShuffledArray } from "../../lib/utils";
 
 const RED = "#e5210e15";
 const GREEN = "#00923915";
@@ -54,7 +49,7 @@ export const OrdersTable = ({ orderbook }: any) => {
   return (
     <Table cellPadding={0} className={classes.root}>
       <TableBody>
-        {evenMoreSmarterShuffleArray(orders).map((props: any) => (
+        {evenSmarterShuffledArray(orders).map((props: any) => (
           <MarketDataRow key={Math.random()} {...props} />
         ))}
       </TableBody>

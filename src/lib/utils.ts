@@ -1,7 +1,7 @@
 export const addOrdersType = (type: any, orders: any) =>
   orders.map((o: any) => ({ ...o, type }));
 
-export const shuffleArray = (arr: any) => {
+export const shuffledArray = (arr: any) => {
   const newArr = [];
   const randomRecord: number[] = [];
 
@@ -22,7 +22,7 @@ export const shuffleArray = (arr: any) => {
   return newArr;
 };
 
-export const smarterShuffleArray = (arr: any) => {
+export const smarterShuffledArray = (arr: any[]) => {
   const newArr = [];
   const randomRecord: Record<string, boolean> = {};
 
@@ -41,33 +41,41 @@ export const smarterShuffleArray = (arr: any) => {
   return newArr;
 };
 
-export const evenMoreSmarterShuffleArray = (arr: any) => {
-  const newArr = [];
-  const randomRecord: Record<string, boolean> = {};
+// Constant Complexity (O(C))
+export const evenSmarterShuffledArray = (originalArr: any[]) => {
+  if (originalArr.length <= 1) {
+    console.log(
+      "🚨 Array is empty or has only one element and cannot be shuffled:",
+      originalArr
+    );
+
+    return originalArr;
+  }
+
+  const shuffledArr: any[] = [];
 
   // Gives you a random Integer between 0 and the array length
-  let randomInt = Math.floor(Math.random() * arr.length);
+  // By avoiding the 0 value, it avoids generating an exact copy of the originalArr
+  let increaseRandomInt =
+    Math.floor(Math.random() * (originalArr.length - 1)) + 1;
+  let decreaseRandomInt = increaseRandomInt;
 
-  let initialRandomInt = randomInt;
+  // Assigns the starting point
+  shuffledArr.push(originalArr[increaseRandomInt]);
 
-  while (newArr.length <= arr.length) {
-    if (!randomRecord[randomInt]) {
-      randomRecord[randomInt] = true;
-      newArr.push(arr[randomInt]);
+  while (shuffledArr.length < originalArr.length) {
+    // Goes right from starting point until the end of the array
+    if (increaseRandomInt + 1 < originalArr.length) {
+      increaseRandomInt += 1;
+      shuffledArr.push(originalArr[increaseRandomInt]);
     }
 
-    if (!!randomRecord[randomInt] && randomInt + 1 < arr.length) {
-      randomInt += 1;
-      randomRecord[randomInt] = true;
-      newArr.push(arr[randomInt]);
-    }
-
-    if (initialRandomInt >= 0) {
-      initialRandomInt -= 1;
-      randomRecord[initialRandomInt] = true;
-      newArr.push(arr[initialRandomInt]);
+    // Goes left from starting point until the beginning of the array
+    if (decreaseRandomInt > 0) {
+      decreaseRandomInt -= 1;
+      shuffledArr.push(originalArr[decreaseRandomInt]);
     }
   }
 
-  return newArr;
+  return shuffledArr;
 };
