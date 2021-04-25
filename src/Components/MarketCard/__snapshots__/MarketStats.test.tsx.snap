@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div>
+  <span
+    class="makeStyles-percentColor-1 makeStyles-percentColor-2"
+  >
+    📈 +0.50%
+  </span>
+</div>
+`;

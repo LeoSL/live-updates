@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div>
+  <div
+    class="MuiBox-root MuiBox-root-3"
+  >
+    <img
+      alt="spinning logo"
+      class="makeStyles-appLogo-2"
+      src="logo.svg"
+    />
+  </div>
+</div>
+`;

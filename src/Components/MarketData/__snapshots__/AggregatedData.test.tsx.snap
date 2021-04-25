@@ -1,0 +1,107 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div>
+  <div
+    class="MuiBox-root MuiBox-root-1"
+  >
+    <table
+      class="MuiTable-root"
+    >
+      <tbody
+        class="MuiTableBody-root"
+      >
+        <tr
+          class="MuiTableRow-root"
+        >
+          <td
+            class="MuiTableCell-root MuiTableCell-body"
+          >
+            <strong>
+              Average:
+            </strong>
+             
+            1200
+          </td>
+          <td
+            class="MuiTableCell-root MuiTableCell-body"
+          >
+            <strong>
+              Close:
+            </strong>
+             
+            1201
+          </td>
+          <td
+            class="MuiTableCell-root MuiTableCell-body"
+          >
+            <strong>
+              High:
+            </strong>
+             
+            1202
+          </td>
+          <td
+            class="MuiTableCell-root MuiTableCell-body"
+          >
+            <strong>
+              Low:
+            </strong>
+             
+            1203
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div
+      class="MuiBox-root MuiBox-root-2"
+    >
+      <table
+        cellpadding="0"
+        class="MuiTable-root makeStyles-root-3"
+      >
+        <tbody
+          class="MuiTableBody-root"
+        >
+          <tr
+            class="MuiTableRow-root"
+          >
+            <td
+              class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
+              style="width: 33vw; padding: 3px 10px; color: rgb(229, 33, 14); background-color: rgba(229, 33, 14, 0.082);"
+            >
+              <div
+                class="makeStyles-priceCell-4"
+              >
+                <p
+                  class="MuiTypography-root MuiTypography-body1"
+                >
+                  20000
+                </p>
+              </div>
+            </td>
+          </tr>
+          <tr
+            class="MuiTableRow-root"
+          >
+            <td
+              class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignRight"
+              style="width: 33vw; padding: 3px 10px; color: rgb(0, 146, 57); background-color: rgba(0, 146, 57, 0.082);"
+            >
+              <div
+                class="makeStyles-priceCell-4"
+              >
+                <p
+                  class="MuiTypography-root MuiTypography-body1"
+                >
+                  12000
+                </p>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+`;

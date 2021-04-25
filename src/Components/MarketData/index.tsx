@@ -1,55 +1,20 @@
-import { ComponentType } from "react";
+import React, { ComponentType } from "react";
 import { useQuery, useSubscription } from "@apollo/client";
-import { Box, Table, TableBody, TableRow, TableCell } from "@material-ui/core";
 
-import { TicketPairType } from "../../models/pairs";
-import { OrdersTable } from "./OrdersTable";
-import { MarketCard } from "../MarketCard";
 import { MARKET_DATA_HTTP, MARKET_DATA_WEBSOCKET } from "../../graphql";
+import { TicketPairType } from "../../models/pairs";
+import { MarketCard } from "../MarketCard";
+import { AggregatedData } from "./AggregatedData";
 
 const MARKET_DATA_POLL_INTERVAL = 2000;
 
-type AggregatedDataProps = {
-  average: string;
-  close: string;
-  high: string;
-  low: string;
-  percentChange: string;
-  orderbook: any;
+type Order = {
+  price: string;
 };
 
-const AggregatedData: ComponentType<AggregatedDataProps> = ({
-  average,
-  close,
-  high,
-  low,
-  orderbook,
-}) => {
-  return (
-    <Box display="flex" flexDirection="column">
-      <Table>
-        <TableBody>
-          <TableRow>
-            <TableCell>
-              <strong>Average:</strong> {average}
-            </TableCell>
-            <TableCell>
-              <strong>Close:</strong> {close}
-            </TableCell>
-            <TableCell>
-              <strong>High:</strong> {high}
-            </TableCell>
-            <TableCell>
-              <strong>Low:</strong> {low}
-            </TableCell>
-          </TableRow>
-        </TableBody>
-      </Table>
-      <Box>
-        <OrdersTable orderbook={orderbook} />
-      </Box>
-    </Box>
-  );
+export type Orderbook = {
+  asks: Order[];
+  bids: Order[];
 };
 
 type MarketDataHttpProps = {

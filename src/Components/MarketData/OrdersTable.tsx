@@ -7,6 +7,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import { ComponentType } from "react";
+import { Orderbook } from ".";
 
 import { addOrdersType, evenSmarterShuffledArray } from "../../lib/utils";
 
@@ -58,10 +59,8 @@ const MarketDataRow: ComponentType<MarketDataRowProps> = ({ type, price }) => {
   );
 };
 
-export const OrdersTable = ({ orderbook }: any) => {
+export const OrdersTable: ComponentType<Orderbook> = ({ asks, bids }) => {
   const classes = useStyles();
-  const { asks, bids } = orderbook;
-
   const orders = addOrdersType("asks", asks).concat(
     addOrdersType("bids", bids)
   );

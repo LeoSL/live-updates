@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div>
+  <table
+    cellpadding="0"
+    class="MuiTable-root makeStyles-root-1"
+  >
+    <tbody
+      class="MuiTableBody-root"
+    >
+      <tr
+        class="MuiTableRow-root"
+      >
+        <td
+          class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignLeft"
+          style="width: 33vw; padding: 3px 10px; color: rgb(229, 33, 14); background-color: rgba(229, 33, 14, 0.082);"
+        >
+          <div
+            class="makeStyles-priceCell-2"
+          >
+            <p
+              class="MuiTypography-root MuiTypography-body1"
+            >
+              20000
+            </p>
+          </div>
+        </td>
+      </tr>
+      <tr
+        class="MuiTableRow-root"
+      >
+        <td
+          class="MuiTableCell-root MuiTableCell-body MuiTableCell-alignRight"
+          style="width: 33vw; padding: 3px 10px; color: rgb(0, 146, 57); background-color: rgba(0, 146, 57, 0.082);"
+        >
+          <div
+            class="makeStyles-priceCell-2"
+          >
+            <p
+              class="MuiTypography-root MuiTypography-body1"
+            >
+              12000
+            </p>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;

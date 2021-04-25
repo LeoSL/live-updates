@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MarketSelector component renders properly 1`] = `
+<div>
+  <div
+    class="MuiBox-root MuiBox-root-2"
+  >
+    <div
+      class="MuiInputBase-root MuiInput-root MuiInput-underline makeStyles-marketSelect-1"
+    >
+      <div
+        aria-haspopup="listbox"
+        class="MuiSelect-root MuiSelect-select MuiSelect-selectMenu MuiInputBase-input MuiInput-input"
+        role="button"
+        tabindex="0"
+      >
+        BTC-USD
+      </div>
+      <input
+        aria-hidden="true"
+        class="MuiSelect-nativeInput"
+        tabindex="-1"
+        value="BTC-USD"
+      />
+      <svg
+        aria-hidden="true"
+        class="MuiSvgIcon-root MuiSelect-icon"
+        focusable="false"
+        viewBox="0 0 24 24"
+      >
+        <path
+          d="M7 10l5 5 5-5z"
+        />
+      </svg>
+    </div>
+  </div>
+</div>
+`;
