@@ -4,12 +4,16 @@ import {
   TableCell,
   TableRow,
   makeStyles,
+  Typography,
 } from "@material-ui/core";
+import { ComponentType } from "react";
 
 import { addOrdersType, evenSmarterShuffledArray } from "../../lib/utils";
 
 const RED = "#e5210e15";
+const RED_TEXT = "#e5210e";
 const GREEN = "#00923915";
+const GREEN_TEXT = "#009239";
 
 const useStyles = makeStyles({
   root: {
@@ -18,21 +22,37 @@ const useStyles = makeStyles({
     backgroundColor: "white",
     width: "100%",
   },
+  priceCell: {
+    "& p:hover": {
+      fontWeight: "bold",
+      cursor: "pointer",
+    },
+  },
 });
 
-const MarketDataRow = ({ type, price }: any) => {
+type MarketDataRowProps = {
+  type: string;
+  price: string;
+};
+
+const MarketDataRow: ComponentType<MarketDataRowProps> = ({ type, price }) => {
+  const classes = useStyles();
+
   return (
     <TableRow>
       <TableCell
         key={price}
         style={{
           width: "33vw",
-          padding: "3px 0px",
+          padding: "3px 10px",
+          color: `${type === "asks" ? GREEN_TEXT : RED_TEXT}`,
           backgroundColor: `${type === "asks" ? GREEN : RED}`,
         }}
         align={type === "asks" ? "right" : "left"}
       >
-        {price}
+        <div className={classes.priceCell}>
+          <Typography>{price}</Typography>
+        </div>
       </TableCell>
     </TableRow>
   );
