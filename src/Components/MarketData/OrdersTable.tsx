@@ -7,9 +7,9 @@ import {
   Typography,
 } from "@material-ui/core";
 import { ComponentType } from "react";
-import { Orderbook } from ".";
 
 import { addOrdersType, evenSmarterShuffledArray } from "../../lib/utils";
+import { Orderbook } from "../../models/pairs";
 
 const RED = "#e5210e15";
 const RED_TEXT = "#e5210e";

@@ -1,7 +1,7 @@
 import { ComponentType } from "react";
 import { Box, Table, TableBody, TableRow, TableCell } from "@material-ui/core";
-import { Orderbook } from ".";
 import { OrdersTable } from "./OrdersTable";
+import { Orderbook } from "../../models/pairs";
 
 type AggregatedDataProps = {
   average: string;

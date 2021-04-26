@@ -5,6 +5,7 @@ it("renders Card component properly", () => {
   const props = {
     title: "Card",
     pair: "BTC-CAD",
+    loading: false,
     percentChange: 1.23,
   };
 

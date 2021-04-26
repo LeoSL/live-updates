@@ -1,21 +1,18 @@
-import React, { ComponentType } from "react";
+import { ComponentType, useState, useEffect } from "react";
 import { useQuery, useSubscription } from "@apollo/client";
 
 import { MARKET_DATA_HTTP, MARKET_DATA_WEBSOCKET } from "../../graphql";
-import { TicketPairType } from "../../models/pairs";
+import {
+  MarketData,
+  MarketDataResponse,
+  PriceAggregate,
+  TicketPairType,
+} from "../../models/pairs";
 import { MarketCard } from "../MarketCard";
 import { AggregatedData } from "./AggregatedData";
+import { Typography } from "@material-ui/core";
 
 const MARKET_DATA_POLL_INTERVAL = 2000;
-
-type Order = {
-  price: string;
-};
-
-export type Orderbook = {
-  asks: Order[];
-  bids: Order[];
-};
 
 type MarketDataHttpProps = {
   polling?: boolean;
@@ -36,27 +33,29 @@ export const MarketDataHttp: ComponentType<MarketDataHttpProps> = ({
     fetchPolicy: "no-cache",
   });
 
-  if (loading) return <p>Http - Loading...</p>;
-  if (error) return <p>Http - Error on fetching Market data :(</p>;
+  const [aggregatedData, setAggregatedData] = useState<PriceAggregate>();
+  useEffect(() => {
+    const response: MarketDataResponse[] = data?.marketData.marketDataResponse;
+
+    if (!!response) {
+      const { marketDataLast24HourPriceAggregate } = response[0];
+      setAggregatedData(marketDataLast24HourPriceAggregate);
+    }
+  }, [data, loading, baseTicker, quoteTicker]);
+
+  if (error)
+    return <Typography>Http - Error on fetching Market data :(</Typography>;
 
   if (polling) startPolling(MARKET_DATA_POLL_INTERVAL);
-
-  const {
-    marketDataLast24HourPriceAggregate,
-    displaySymbol: pair,
-  } = data.marketData.marketDataResponse[0];
-
-  const percentChange: number = Number(
-    marketDataLast24HourPriceAggregate?.percentChange
-  );
 
   return (
     <MarketCard
       title={polling ? "HTTP - Polling" : "HTTP"}
-      pair={pair}
-      percentChange={percentChange}
+      pair={`${baseTicker}-${quoteTicker}`}
+      loading={loading}
+      percentChange={aggregatedData && Number(aggregatedData?.percentChange)}
     >
-      <AggregatedData {...marketDataLast24HourPriceAggregate} />
+      {aggregatedData && <AggregatedData {...aggregatedData} />}
     </MarketCard>
   );
 };
@@ -68,27 +67,45 @@ type MarketDataWebSocketProps = {
 export const MarketDataWebSocket: ComponentType<MarketDataWebSocketProps> = ({
   ticketPair,
 }) => {
-  const { data, error, loading } = useSubscription(MARKET_DATA_WEBSOCKET);
-
-  if (loading) return <p>WebSocket - Loading...</p>;
-  if (error) return <p>WebSocket - Error on fetching Market data :(</p>;
-
-  const marketData = data.marketData?.marketDataResponse?.tradingPairs?.find(
-    (pairs: any) => pairs.displaySymbol === ticketPair
-  );
+  const [baseTicker, quoteTicker] = ticketPair.split("-");
 
   const {
-    marketDataLast24HourPriceAggregate,
-    displaySymbol: pair,
-  } = marketData;
+    data: subscriptionData,
+    error: subscriptionError,
+    loading: subscriptionLoading,
+  } = useSubscription(MARKET_DATA_WEBSOCKET, {
+    variables: { baseTicker, quoteTicker },
+  });
 
-  const percentChange = Number(
-    marketDataLast24HourPriceAggregate?.percentChange
-  );
+  const [aggregatedData, setAggregatedData] = useState<PriceAggregate>();
+
+  useEffect(() => {
+    const subscriptionResponse: MarketData = subscriptionData?.marketData;
+
+    if (!!subscriptionResponse) {
+      const {
+        marketDataLast24HourPriceAggregate,
+      } = subscriptionResponse.marketDataResponse as MarketDataResponse;
+
+      setAggregatedData(marketDataLast24HourPriceAggregate);
+    }
+  }, [subscriptionData, subscriptionLoading, ticketPair]);
+
+  if (subscriptionError) {
+    console.error(subscriptionError);
+    return (
+      <Typography>WebSocket - Error on fetching Market data :(</Typography>
+    );
+  }
 
   return (
-    <MarketCard title="WebSockets" pair={pair} percentChange={percentChange}>
-      <AggregatedData {...marketDataLast24HourPriceAggregate} />
+    <MarketCard
+      title="WebSockets"
+      pair={ticketPair}
+      loading={subscriptionLoading}
+      percentChange={Number(aggregatedData?.percentChange)}
+    >
+      {aggregatedData && <AggregatedData {...aggregatedData} />}
     </MarketCard>
   );
 };
