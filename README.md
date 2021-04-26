@@ -1,8 +1,8 @@
 # 📈 Market Live Updates
 
-- 💡 Looking for the server repository? [Click here](https://github.com/LeoSL/live-updates-server).
+💡 Looking for the server repository? [Click here](https://github.com/LeoSL/live-updates-server).
 
-A web application that experiments three different ways of fetching data and lively update the UI with it!
+- A web application that experiments three different ways of fetching data and lively update the UI with it!
 
   1. Simple GraphQL Query over HTTP
   1. GraphQL Query over HTTP using polling strategies
