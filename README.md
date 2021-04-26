@@ -36,7 +36,7 @@ Launches the test runner in the interactive watch mode.
 
 ## Architecture
 
-![Market Live Updates@2x (5)](https://user-images.githubusercontent.com/6999140/115975299-919e8e00-a531-11eb-8bf5-4007ccd6c2ba.png)
+![Market Live Updates@2x (10)](https://user-images.githubusercontent.com/6999140/116038877-078d1d00-a638-11eb-872b-115c823dc2bd.png)
 
 ---
 
