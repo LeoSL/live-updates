@@ -6,6 +6,7 @@ import {
   Typography,
   makeStyles,
 } from "@material-ui/core";
+import Skeleton from "@material-ui/lab/Skeleton";
 
 import { MarketStats } from "./MarketStats";
 
@@ -21,13 +22,15 @@ const useStyles = makeStyles({
 type MarketCardType = {
   title: string;
   pair: string;
-  percentChange: number;
+  loading: boolean;
+  percentChange?: number;
   children?: React.ReactNode;
 };
 
 export const MarketCard: ComponentType<MarketCardType> = ({
   title,
   pair,
+  loading,
   percentChange,
   children,
 }) => {
@@ -36,22 +39,29 @@ export const MarketCard: ComponentType<MarketCardType> = ({
   return (
     <Card className={classes.root}>
       <CardContent>
-        <Box display="flex" flexDirection="column">
+        {loading ? (
           <Box>
-            <Typography
-              className={classes.title}
-              color="textSecondary"
-              gutterBottom
-            >
-              {title}
-            </Typography>
-            <Typography variant="h5" component="h2">
-              Market: {pair}{" "}
-              {percentChange && <MarketStats percentChange={percentChange} />}
-            </Typography>
+            <Skeleton animation="wave" />
+            <Skeleton variant="rect" width="100%" height={620} />
           </Box>
-          {children}
-        </Box>
+        ) : (
+          <Box display="flex" flexDirection="column">
+            <Box>
+              <Typography
+                className={classes.title}
+                color="textSecondary"
+                gutterBottom
+              >
+                {title}
+              </Typography>
+              <Typography variant="h5" component="h2">
+                Market: {pair}{" "}
+                {percentChange && <MarketStats percentChange={percentChange} />}
+              </Typography>
+            </Box>
+            {children}
+          </Box>
+        )}
       </CardContent>
     </Card>
   );
