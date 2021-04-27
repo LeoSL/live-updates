@@ -10,7 +10,8 @@ import {
 } from "../../models/pairs";
 import { MarketCard } from "../MarketCard";
 import { AggregatedData } from "./AggregatedData";
-import { Typography } from "@material-ui/core";
+import { Box, Typography } from "@material-ui/core";
+import { Skeleton } from "@material-ui/lab";
 
 const MARKET_DATA_POLL_INTERVAL = 2000;
 
@@ -33,29 +34,35 @@ export const MarketDataHttp: ComponentType<MarketDataHttpProps> = ({
     fetchPolicy: "no-cache",
   });
 
-  const [aggregatedData, setAggregatedData] = useState<PriceAggregate>();
-  useEffect(() => {
-    const response: MarketDataResponse[] = data?.marketData.marketDataResponse;
-
-    if (!!response) {
-      const { marketDataLast24HourPriceAggregate } = response[0];
-      setAggregatedData(marketDataLast24HourPriceAggregate);
-    }
-  }, [data, loading, baseTicker, quoteTicker]);
-
-  if (error)
-    return <Typography>Http - Error on fetching Market data :(</Typography>;
+  if (loading) {
+    return (
+      <Box>
+        <Skeleton animation="wave" />
+        <Skeleton variant="rect" width="100%" height={620} />
+      </Box>
+    );
+  }
+  if (error) return <p>Http - Error on fetching Market data :(</p>;
 
   if (polling) startPolling(MARKET_DATA_POLL_INTERVAL);
+
+  const {
+    marketDataLast24HourPriceAggregate,
+    displaySymbol: pair,
+  } = data.marketData.marketDataResponse[0];
+
+  const percentChange: number = Number(
+    marketDataLast24HourPriceAggregate?.percentChange
+  );
 
   return (
     <MarketCard
       title={polling ? "HTTP - Polling" : "HTTP"}
-      pair={`${baseTicker}-${quoteTicker}`}
+      pair={pair}
       loading={loading}
-      percentChange={aggregatedData && Number(aggregatedData?.percentChange)}
+      percentChange={percentChange}
     >
-      {aggregatedData && <AggregatedData {...aggregatedData} />}
+      <AggregatedData {...marketDataLast24HourPriceAggregate} />
     </MarketCard>
   );
 };
